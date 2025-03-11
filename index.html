@@ -3,52 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Image Slider</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="styles.css">
-   
 </head>
 <body>
-    <h2>Image Slider</h2>
-<section>
-    
-    <article id="article-container"></article>
-    <div>
-      <button id="leftArrow" onclick=previousImg()>❮</button>
-      <button id="rightArrow" onclick=nextImg()>❯</button>
-    </div>
-  </section>
- 
- 
-  <script>
-    const imgUrlsArr = [
-  "https://raw.githubusercontent.com/Dimterion/PoTW-GO/master/src/assets/images/start_screen_image_01.jpg",
-  "https://raw.githubusercontent.com/Dimterion/PoTW-GO/master/src/assets/images/start_screen_image_02.jpg",
-  "https://raw.githubusercontent.com/Dimterion/PoTW-GO/master/src/assets/images/start_screen_image_03.jpg"
-];
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
 
-const articleContainer = document.getElementById("article-container");
+    <script>
+        function addTask() {
+            let input = document.getElementById("taskInput");
+            let taskText = input.value.trim();
+            if (taskText === "") return;
 
-articleContainer.innerHTML = `<img src="${imgUrlsArr[0]}" class="image" />`;
-
-let imgIndex = 0;
-
-function previousImg() {
-  if (imgIndex > 0 && imgIndex < imgUrlsArr.length) {
-    imgIndex--;
-  } else {
-    imgIndex = imgUrlsArr.length - 1;
-  }
-  articleContainer.innerHTML = `<img src="${imgUrlsArr[imgIndex]}" class="image" />`;
-}
-
-function nextImg() {
-  if (imgIndex >= 0 && imgIndex < imgUrlsArr.length - 1) {
-    imgIndex++;
-  } else {
-    imgIndex = 0;
-  }
-  articleContainer.innerHTML = `<img src="${imgUrlsArr[imgIndex]}" class="image" />`;
-}
-  </script>
-  </body>
-  </html>
+            let li = document.createElement("li");
+            li.textContent = taskText;
+            
+            let removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.onclick = function() {
+                li.remove();
+            };
+            
+            li.appendChild(removeButton);
+            document.getElementById("taskList").appendChild(li);
+            input.value = "";
+        }
+    </script>
+</body>
+</html>
